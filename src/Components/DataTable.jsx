@@ -37,13 +37,13 @@ const DataTable = ({ data, brand }) => {
     const calTotalValueAccordingToBrand = (mkID) => {
         return data.reduce((acc, item) => {
             if (item.MkID === mkID) {
-                // console.log("string: ",item.Prc)
+                //console.log("string: ",item.Prc)
                 const priceString = item.Prc;
-                // console.log("priceString:", priceString)
-                const cleanString = priceString.replace(/,/g, '');
+                //console.log("priceString:", priceString)
+                const cleanString = priceString.replace(/[^0-9.]/g, '');
                 // console.log("cleanString:",cleanString)
                 const priceValue = parseInt(cleanString, 10);
-                // console.log("Int:",priceValue)
+                //console.log("Int:",priceValue)
                 return acc + priceValue;
             }
             return acc;
@@ -72,7 +72,7 @@ const DataTable = ({ data, brand }) => {
             acc[MdID].models.add(Model);
             acc[MdID].nameMMT.add(NameMMT);
 
-            acc[MdID].prc += parseInt(Prc.replace(/,/g, ''),10);
+            acc[MdID].prc += parseInt(Prc.replace(/[^0-9.]/g, ''),10);
 
             return acc;
         }, {});
