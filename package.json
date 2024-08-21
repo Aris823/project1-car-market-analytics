@@ -12,6 +12,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
+    "chroma-js": "^3.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.3.1",
