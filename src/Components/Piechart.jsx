@@ -1,14 +1,15 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
+import chroma from 'chroma-js';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const groupCarsByBrand = (cars) => {
   const brandCounts = {};
 
   cars.forEach(car => {
-    const brand = car.NameMMT.split(' ')[0]; 
+    const brand = car.NameMMT.split(' ')[0];
     if (brandCounts[brand]) {
       brandCounts[brand] += 1;
     } else {
@@ -19,38 +20,53 @@ const groupCarsByBrand = (cars) => {
   return brandCounts;
 };
 
-const PieChart = ({ data }) => {
-  const brandData = groupCarsByBrand(data);
+const generateColorShades = (baseColor, count) => {
 
-  const pieData = {
-    labels: Object.keys(brandData),
-    datasets: [
-      {
-        label: '# of Cars',
-        data: Object.values(brandData),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  return <Pie data={pieData} />;
+  return chroma.scale([chroma(baseColor).darken(0), chroma(baseColor).brighten(3)])
+               .mode('lab')
+               .colors(count);
 };
 
-export default PieChart;
+const PieChart = ({ data }) => {
+  const brandData = groupCarsByBrand(data);
+  
+  const sortedBrands = Object.entries(brandData).sort((a, b) => b[1] - a[1]);
+  
+  const labels = sortedBrands.map(([brand]) => brand);
+  const values = sortedBrands.map(([, count]) => count);
+  
+  const colorCount = labels.length;
+  const baseColor = "#FF5700"; // this is the orange color from the TaladRod logo
+  const colors = generateColorShades(baseColor, colorCount);
 
+  const pieData = {
+    labels: labels,
+    datasets: [
+      {
+        Title: 'Total Number of Cars',
+        label: 'Total Cars',
+        data: values,
+        backgroundColor: colors, 
+        borderColor: colors.map(color => chroma(color).darken(0.8).hex()), 
+        borderWidth: 1.5,
+      },
+    ],
+  }
+
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Car Availability by Brand',
+        font: {
+          size: 18
+        },
+      },
+    },
+  };
+
+  return <Pie data={pieData} options={options} />
+
+}
+
+export default PieChart

@@ -8,6 +8,8 @@ import {
 
 const DataTable = ({ data, brand }) => {
 
+    data = data.filter(car => !car.IsCExp )
+
     // const calTotalOfBrand = (mkID) => {
     //     data.reduce((acc, item) => 
     //     if (item.Mkid == mkID) {

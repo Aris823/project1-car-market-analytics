@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import carList from './assets/taladrod-cars.min.json'
-// // import carList from './assets/taladrod-cars.json'
-//  import carList from './assets/sample.json'
+// import carList from './assets/taladrod-cars.json'
+// import carList from './assets/sample.json'
 import {
   Container,
   Row,
@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap'
 import Car from './Components/Car'
 import DataTable from './Components/DataTable';
-import PieChart from './Components/Piechart';
+import PieChart from './Components/piechart';
 import StackedBarChart from './Components/StackedbarChart2';
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
   //   }
 
   return (
-    <Container>
+    <Container fluid>
       <Col>
         {/* <h1>Car Listing</h1>
       <Row>
@@ -51,10 +51,14 @@ function App() {
         <DataTable data={Cars} brand={MMList} />
       </Col>
       <Col>
-        <PieChart data={Cars} />
+        <div style={{ height: '500px', marginBottom: '20px' }}>
+          <PieChart data={Cars} />
+        </div>
       </Col>
       <Col>
-        <StackedBarChart data={Cars} />
+        <div style={{ height: '500px', overflowX: 'auto' }}>
+          <StackedBarChart data={Cars} />
+        </div>
       </Col>
     </Container>
   )
