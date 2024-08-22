@@ -5,10 +5,17 @@ import {
     ListGroup,
 } from 'react-bootstrap';
 
-const Car = ({ car }) => {
+const Car = ({ car, highlightedCar , onAdd }) => {
     if (car.IsCExp) {
         return <></>
     }
+
+   // const existingCarIndex = highlightedCar.findIndex(item => item.Cid == car.Cid)
+
+    const handleHighlight = (CarID) => {
+        onAdd(CarID)
+    }
+
     return (
         //     <Card style={{ width: '18rem' }}>
         //     <Card.Img variant="top" src={car.Img300} alt={car.Img100} />
@@ -38,7 +45,7 @@ const Car = ({ car }) => {
             <Card.Body>
                 {/* <Card.Link href="#">Card Link</Card.Link>
                 <Card.Link href="#">Another Link</Card.Link> */}
-                <Button variant="primary">HighLight</Button>
+                <Button variant="primary" onClick={() => handleHighlight(car.Cid)}>HighLight</Button>
             </Card.Body>
         </Card>
 

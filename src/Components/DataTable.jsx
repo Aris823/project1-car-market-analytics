@@ -6,7 +6,7 @@ import {
     Table,
 } from 'react-bootstrap'
 
-const DataTable = ({ data, brand }) => {
+const DataTable = ({ data, brand, name }) => {
 
     data = data.filter(car => !car.IsCExp )
 
@@ -137,7 +137,7 @@ const DataTable = ({ data, brand }) => {
                         </tbody>
                     </Table>
                 </Col> */}
-
+                {name === "detail_table" &&
                 <Col xs={12}>
                     <Table>
                         <thead>
@@ -163,6 +163,7 @@ const DataTable = ({ data, brand }) => {
                         </tbody>
                     </Table>
                 </Col>
+}
 
 
 
@@ -188,6 +189,7 @@ const DataTable = ({ data, brand }) => {
                     </Table>
                 </Col> */}
 
+            {name === "table" &&
                 <Col xs={12}>
                     <Table>
                         <thead>
@@ -213,6 +215,7 @@ const DataTable = ({ data, brand }) => {
                         </tbody>
                     </Table>
                 </Col>
+}
             </Row>
 
 
