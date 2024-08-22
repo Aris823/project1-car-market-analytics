@@ -1,17 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useLocalStorage } from 'react-use';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import carList from './assets/taladrod-cars.min.json'
-// import carList from './assets/taladrod-cars.json'
-import carList from './assets/sample.json'
+import carList from './assets/taladrod-cars.json'
+//import carList from './assets/sample.json'
 import {
   Container,
   Row,
   Col,
+  Button
 } from 'react-bootstrap'
 import Car from './Components/Car'
 import DataTable from './Components/DataTable';
 import PieChart from './Components/piechart';
 import StackedBarChart from './Components/StackedbarChart2';
+import NavbarComponent from './Components/NavBar';
+import HomePage from './pages/HomePage';
+import HighlightPage from './pages/HighlighPage/HighlightPage'
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 function App() {
 
@@ -34,14 +40,22 @@ function App() {
       // Add newCar to highlightedCar
       setHighlightedCar([...highlightedCar, newCar]);
     }
-
-    // For debugging purposes
-    console.log(highlightedCar);
   }
 
   return (
-    <Container fluid>
-      {page === "car_lists" && <Col>
+    <Router fluid>
+      <NavbarComponent />
+      <div className="container mt-4">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/pages/HighlightPage" element={<HighlightPage />} />
+          <Route path="/pages/DashboardPage" element={<DashboardPage />} />
+          {/* <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} /> */}
+        </Routes>
+      </div>
+
+      {/* {page === "car_lists" && <Col>
         <h1>Car Listing</h1>
         <Row>
           {Cars.map(car => (
@@ -52,7 +66,7 @@ function App() {
             ) : null
           ))}
         </Row>
-      </Col>}
+      </Col>} */}
       {page === "table" &&
         <Row>
           <Col>
@@ -83,22 +97,24 @@ function App() {
       }
 
 
-      <Col>
-        <h1>Highlighted Listing</h1>
-        <Row>
-        {
-          highlightedCar.map(car => (
-            !car.IsCExp ? (
-              <Col key={car.Cid} md={3} className="mb-4">
-                <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID}/>
-              </Col>
-            ) : null
-          ))
-        }
-        </Row>
-      </Col>
+      {page === "highlighted_lists" &&
+        <Col>
+          <h1>Highlighted Listing</h1>
+          <Row>
+            {
+              highlightedCar.map(car => (
+                !car.IsCExp ? (
+                  <Col key={car.Cid} md={3} className="mb-4">
+                    <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID} />
+                  </Col>
+                ) : null
+              ))
+            }
+          </Row>
+        </Col>
+      }
 
-    </Container>
+    </Router>
   )
 }
 

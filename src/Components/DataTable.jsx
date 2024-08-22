@@ -145,8 +145,8 @@ const DataTable = ({ data, brand, name }) => {
                                 <th>MdID</th>
                                 <th>Brand</th>
                                 <th>Model</th>
-                                <th>No. Of Car</th>
-                                <th>Value</th>
+                                <th>Total No. Of Car</th>
+                                <th>Total Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,10 +194,10 @@ const DataTable = ({ data, brand, name }) => {
                     <Table>
                         <thead>
                             <tr>
-                                <td>mkID</td>
-                                <td>brand</td>
-                                <td>Total No. of Cars</td>
-                                <td>Total Value</td>
+                                <th>MkID</th>
+                                <th>Brand</th>
+                                <th>Total No. of Cars</th>
+                                <th>Total Value</th>
                             </tr>
                         </thead>
 
