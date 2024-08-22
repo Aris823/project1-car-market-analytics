@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useLocalStorage } from 'react-use';
-import carList from './assets/taladrod-cars.min.json'
+// import carList from './assets/taladrod-cars.min.json'
 // import carList from './assets/taladrod-cars.json'
-// import carList from './assets/sample.json'
+import carList from './assets/sample.json'
 import {
   Container,
   Row,
@@ -15,16 +15,28 @@ import StackedBarChart from './Components/StackedbarChart2';
 
 function App() {
 
-  const [data, setData] = useState(null);
   const { Cars } = carList
   const { MMList } = carList
   const [highlightedCar, setHighlightedCar, remove] = useLocalStorage("highlighted_car", [])
   const [page, setPage] = useState("car_lists")
 
   const addByCarID = (CarID) => {
+
     const newCar = Cars.find(car => car.Cid === CarID)
-    setHighlightedCar([...highlightedCar,newCar])
-    console.log(highlightedCar)
+
+    // Check if newCar is already in the highlightedCar array
+    const isAlreadyHighlighted = highlightedCar.some(car => car.Cid === newCar.Cid);
+
+    if (isAlreadyHighlighted) {
+      // Remove newCar from highlightedCar
+      setHighlightedCar(highlightedCar.filter(car => car.Cid !== newCar.Cid));
+    } else {
+      // Add newCar to highlightedCar
+      setHighlightedCar([...highlightedCar, newCar]);
+    }
+
+    // For debugging purposes
+    console.log(highlightedCar);
   }
 
   return (
@@ -35,7 +47,7 @@ function App() {
           {Cars.map(car => (
             !car.IsCExp ? (
               <Col key={car.Cid} md={3} className="mb-4">
-                <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID}/>
+                <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID} />
               </Col>
             ) : null
           ))}
@@ -71,14 +83,18 @@ function App() {
       }
 
 
-<Col>
+      <Col>
         <h1>Highlighted Listing</h1>
         <Row>
-          {highlightedCar.map(car => (
+        {
+          highlightedCar.map(car => (
+            !car.IsCExp ? (
               <Col key={car.Cid} md={3} className="mb-4">
-                <Car car={highlightedCar}/>
+                <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID}/>
               </Col>
-          ))}
+            ) : null
+          ))
+        }
         </Row>
       </Col>
 
