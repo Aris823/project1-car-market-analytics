@@ -5,7 +5,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 const NavbarComponent = () => {
     return (
         <Navbar sticky="top" bg="light" expand="lg">
-            <Navbar.Brand as={Link} to="/">MyApp</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">Car Market</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
