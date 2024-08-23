@@ -21,7 +21,7 @@ const HomePage = () => {
           setHighlightedCar(highlightedCar.filter(car => car.Cid !== newCar.Cid));
         } else {
           // Add newCar to highlightedCar
-          setHighlightedCar([...highlightedCar, newCar]);
+          setHighlightedCar([...highlightedCar, newCar])
         }
       }
 

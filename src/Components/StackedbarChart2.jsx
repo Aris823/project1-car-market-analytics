@@ -8,7 +8,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend, Title)
 
 
 const StackedBarChart = ({ data }) => {
-  const baseColor = "#FF5700"; // Orange color from TaladRod logo
+  const baseColor = "#094D8C"; 
 
   const brandModelMap = data.reduce((acc, car) => {
     const brand = car.NameMMT.split(' ')[0];
@@ -70,7 +70,7 @@ const StackedBarChart = ({ data }) => {
     indexAxis: 'y',
     plugins: {
       legend: {
-        display: false,
+        display: true,
         position: 'bottom',
         align: "start",
         labels: {
@@ -94,9 +94,7 @@ const StackedBarChart = ({ data }) => {
       x: {
         stacked: true,
         ticks: {
-          autoSkip: false,
-          maxRotation: 45,
-          minRotation: 45
+          autoSkip: false
         },
         title: {
           display: true,

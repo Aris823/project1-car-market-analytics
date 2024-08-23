@@ -36,7 +36,7 @@ const PieChart = ({ data }) => {
   const values = sortedBrands.map(([, count]) => count);
   
   const colorCount = labels.length;
-  const baseColor = "#FF5700"; // this is the orange color from the TaladRod logo
+  const baseColor = "#094D8C"; 
   const colors = generateColorShades(baseColor, colorCount);
 
   const pieData = {

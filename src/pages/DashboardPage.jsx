@@ -38,7 +38,7 @@ const DashboardPage = () => {
 
         {page == "detail_table" &&
         <Col>
-        <div style={{ height: '500px', overflowX: 'auto' }}>
+        <div style={{ height: '1000px',  width: '100%', overflowX: 'auto' }}>
           <StackedBarChart data={Cars} />
         </div>
       </Col>
