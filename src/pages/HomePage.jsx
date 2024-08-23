@@ -1,5 +1,5 @@
 import React from 'react';
-import carList from '../assets/taladrod-cars.min.json'
+import carList from '../assets/taladrod-cars.json'
 import Car from '../Components/Car'
 import {Col, Row} from 'react-bootstrap'
 import { useLocalStorage } from 'react-use';

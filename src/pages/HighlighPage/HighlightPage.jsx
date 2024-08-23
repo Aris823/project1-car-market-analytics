@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Row} from 'react-bootstrap'
 import Car from '../../Components/Car'
 import { useLocalStorage } from 'react-use';
-import carList from '../../assets/taladrod-cars.min.json'
+import carList from '../../assets/taladrod-cars.json';
 
 const HighlightPage = () => {
 
