@@ -28,6 +28,8 @@ const generateColorShades = (baseColor, count) => {
 };
 
 const PieChart = ({ data }) => {
+  data = data.filter(car => !car.IsCExp)
+
   const brandData = groupCarsByBrand(data);
   
   const sortedBrands = Object.entries(brandData).sort((a, b) => b[1] - a[1]);

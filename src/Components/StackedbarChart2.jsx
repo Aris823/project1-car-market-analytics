@@ -8,6 +8,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend, Title)
 
 
 const StackedBarChart = ({ data }) => {
+
+  data = data.filter(car => !car.IsCExp)
+  
   const baseColor = "#094D8C"; 
 
   const brandModelMap = data.reduce((acc, car) => {
