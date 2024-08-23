@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import {Col, Row, Container, Button} from 'react-bootstrap';
-import DataTable from "../../Components/DataTable";
-import PieChart from "../../Components/piechart";
-import carList from "../../assets/taladrod-cars.json";
-import StackedBarChart from "../../Components/StackedbarChart2";
+import DataTable from "../Components/DataTable";
+import PieChart from "../Components/piechart";
+import carList from "../assets/taladrod-cars.json";
+import StackedBarChart from "../Components/StackedbarChart2";
 
 const DashboardPage = () => {
     const {Cars} = carList

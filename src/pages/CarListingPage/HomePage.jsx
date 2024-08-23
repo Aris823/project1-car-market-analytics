@@ -1,7 +1,7 @@
 import React from 'react';
-import carList from '../assets/taladrod-cars.json'
-import Car from '../Components/Car'
-import {Col, Row} from 'react-bootstrap'
+import carList from '../../assets/taladrod-cars.json'
+import Car from '../../Components/Car'
+import {Col, Row, Container} from 'react-bootstrap'
 import { useLocalStorage } from 'react-use';
 
 
@@ -26,6 +26,25 @@ const HomePage = () => {
       }
 
     return (
+      <Container>
+                <Col>
+          <h1>Highlighted Car</h1>
+          { highlightedCar.length === 0 
+          ? <h3 style={{color: 'gray', opacity: 0.5}}>You haven't highlighted any car yet.</h3> 
+          : <Row>
+          {
+            highlightedCar.map(car => (
+              !car.IsCExp ? (
+                <Col key={car.Cid} md={3} className="mb-4">
+                  <Car car={car} highlightedCar={highlightedCar} onAdd={addByCarID} />
+                </Col>
+              ) : null
+            ))
+          }
+        </Row>
+        }
+          
+        </Col>
         <Col>
         <h1>Car Listing</h1>
         <Row>
@@ -38,6 +57,7 @@ const HomePage = () => {
           ))}
         </Row>
       </Col>
+      </Container>
     );
 };
 

@@ -9,9 +9,10 @@ const NavbarComponent = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/">Home</Nav.Link>
-                    <Nav.Link as={Link} to="/pages/HighlightPage">HighLighted</Nav.Link>
-                    <Nav.Link as={Link} to="/pages/DashboardPage">Dashboard</Nav.Link>
+                    
+                    {/* <Nav.Link as={Link} to="/pages/HighlightPage">HighLighted</Nav.Link> */}
+                    <Nav.Link as={Link} to="/">Dashboard</Nav.Link>
+                    <Nav.Link as={Link} to="/pages/CarListingPage">Highlighted Car</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
