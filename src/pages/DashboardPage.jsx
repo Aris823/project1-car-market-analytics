@@ -22,27 +22,28 @@ const DashboardPage = () => {
         <Container>
         <h1>Dashboard</h1>
         <Row>
-           
-        <Col>
+        <Col xs={3}>
         <Button onClick={handleTableChange}>{page == "table" ? "View Detail" : "View Less"}</Button>
-          <DataTable data={Cars} brand={MMList} name={page} />
         </Col>
+        <br />
 
         {page == "table" &&
-        <Col>
+        <Row>
           <div style={{ height: '500px', marginBottom: '20px' }}>
             <PieChart data={Cars} />
           </div>
-        </Col>
+        </Row>
         }
 
         {page == "detail_table" &&
-        <Col>
+        <Row>
         <div style={{ height: '1000px',  width: '100%', overflowX: 'auto' }}>
           <StackedBarChart data={Cars} />
         </div>
-      </Col>
+      </Row>
         }
+
+<DataTable data={Cars} brand={MMList} name={page} />
       </Row>
       </Container>
     );
