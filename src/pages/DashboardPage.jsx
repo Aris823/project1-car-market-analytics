@@ -23,7 +23,7 @@ const DashboardPage = () => {
         <h1>Dashboard</h1>
         <Row>
         <Col xs={3}>
-        <Button onClick={handleTableChange}>{page == "table" ? "View Detail" : "View Less"}</Button>
+        <Button  onClick={handleTableChange}>{page == "table" ? "View Detail" : "View Less"}</Button>
         </Col>
         <br />
 

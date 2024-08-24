@@ -1,35 +1,43 @@
-import React from 'react';
-import {
-    Container,
-    Row,
-    Col,
-    Table,
-} from 'react-bootstrap'
+import React, { useState } from 'react';
+import { Container, Row, Col, Table, FormControl } from 'react-bootstrap';
+import carList from '../assets/taladrod-cars.min.json'
+//import "../App.css";
 
-const DataTable = ({ data, brand, name }) => {
+const DataTable = ({ data, brand,name }) => {
+    const { Cars } = carList;
+    
+    const [searchTerm, setSearchTerm] = useState('');
 
-    data = data.filter(car => !car.IsCExp)
+    const filteredData = data.filter(car => {
+        if (!car.IsCExp) {
+            return car.NameMMT.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+        return false;
+    });
+    const filteredBrand = brand.filter(item =>
+        item.Name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const calTotalOfBrand = (mkID) => {
-        return data.reduce((acc, item) => {
+        return filteredData.reduce((acc, item) => {
             if (item.MkID === mkID) {
                 return acc + 1;
             }
             return acc;
         }, 0);
-    }
+    };
 
     const calTotalOfModel = (MdID) => {
-        return data.reduce((acc, item) => {
+        return filteredData.reduce((acc, item) => {
             if (item.MdID === MdID) {
-                return acc + 1
+                return acc + 1;
             }
             return acc;
-        }, 0)
-    }
+        }, 0);
+    };
 
     const calTotalValueAccordingToBrand = (mkID) => {
-        return data.reduce((acc, item) => {
+        return filteredData.reduce((acc, item) => {
             if (item.MkID === mkID) {
                 const priceString = item.Prc;
                 const cleanString = priceString.replace(/[^0-9.]/g, '');
@@ -38,14 +46,11 @@ const DataTable = ({ data, brand, name }) => {
             }
             return acc;
         }, 0);
-    }
+    };
 
-    // Function to count occurrences of each MdID and collect models
     const countMdIDOccurrences = (data) => {
         return data.reduce((acc, car) => {
             const { MdID, Model, NameMMT, Prc } = car;
-
-            // If MdID does not exist in accumulator, initialize it
             if (!acc[MdID]) {
                 acc[MdID] = {
                     count: 0,
@@ -54,95 +59,95 @@ const DataTable = ({ data, brand, name }) => {
                     prc: 0,
                 };
             }
-
-            // Increment the count for this MdID
             acc[MdID].count += 1;
-
-            // Add model to the set of models for this MdID
             acc[MdID].models.add(Model);
             acc[MdID].nameMMT.add(NameMMT);
-
             acc[MdID].prc += parseInt(Prc.replace(/[^0-9.]/g, ''), 10);
 
             return acc;
         }, {});
     };
 
-    // Get the count of each MdID and associated models
-    const mdIDCounts = countMdIDOccurrences(data);
+    const mdIDCounts = countMdIDOccurrences(filteredData);
 
-    // Format the result for easier readability
     const formattedResults = Object.entries(mdIDCounts).map(([mdID, { count, models, nameMMT, prc }]) => ({
         MdID: Number(mdID),
         Count: count,
-        Models: Array.from(models).join(', '), // Join models into a single string
+        Models: Array.from(models).join(', '),
         NameMMT: Array.from(nameMMT).join(', '),
         Prc: prc,
     }));
 
     return (
         <Container>
+            <br />
             <Row>
+                <Col xs={6}>
+                    <FormControl
+                        type="text"
+                        placeholder="Search by brand eg. Toyota"
+                        className="mb-3"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </Col>
 
                 {name === "detail_table" &&
-                    <Col xs={12}>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>MdID</th>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Total No. Of Car</th>
-                                    <th>Total Value</th>
+                <Col xs={12}>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>No. Of Cars</th>
+                                <th>Value(Baht)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {formattedResults.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.NameMMT.slice(0, item.NameMMT.indexOf(' '))}</td>
+                                    <td>{item.Models}</td>
+                                    <td>{item.Count}</td>
+                                    <td>{item.Prc}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {formattedResults.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.MdID}</td>
-                                        <td>{item.NameMMT.slice(0, item.NameMMT.indexOf(' '))}</td>
-                                        <td>{item.Models}</td>
-                                        <td>{item.Count}</td>
-                                        <td>{item.Prc}</td>
-                                    </tr>
-                                ))}
-
-                            </tbody>
-                        </Table>
-                    </Col>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Col>
                 }
 
-                {name === "table" &&
-                    <Col xs={12}>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>MkID</th>
-                                    <th>Brand</th>
-                                    <th>Total No. of Cars</th>
-                                    <th>Total Value</th>
-                                </tr>
-                            </thead>
+            {name === "table" &&
+            <Col xs={12}>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <td><b>Brand</b></td>
+                                <td><b>Total No. of Cars</b></td>
+                                <td><b>Total Value(Baht)</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredBrand.map((item, index) => {
+                                const totalCars = calTotalOfBrand(item.mkID);
+                                const totalValue = calTotalValueAccordingToBrand(item.mkID);
 
-                            <tbody>
-                                {brand.filter(item => calTotalOfBrand(item.mkID) != 0)
-                                .map((item, index) => (
-                                    <tr key={index}>
-                                        <td>{item.mkID}</td>
-                                        <td>{item.Name}</td>
-                                        <td>{calTotalOfBrand(item.mkID)}</td>
-                                        <td>{calTotalValueAccordingToBrand(item.mkID)}</td>
-                                    </tr>
-                                ))}
-                                <tr>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </Col>
-                }
+                                if (totalCars > 0) {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{item.Name}</td>
+                                            <td>{totalCars}</td>
+                                            <td>{totalValue}</td>
+                                        </tr>
+                                    );
+                                }
+                                return null;
+                            })}
+                        </tbody>
+                    </Table>
+                </Col>
+            }
             </Row>
-
-
         </Container>
     );
 };
