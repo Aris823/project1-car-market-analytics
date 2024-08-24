@@ -73,7 +73,7 @@ const HomePage = () => {
                 <Col>
                     <h1>Car Listing</h1>
                     <br />
-                    <div style={{ textAlign: "center" }}>
+                    <div style={{ textAlign: "center" , fontSize: "1.5rem"}}>
                         <label htmlFor="brandFilter" className="filter-label">Filter by Brand: </label>
                         &nbsp; &nbsp;
                         <select
@@ -81,6 +81,7 @@ const HomePage = () => {
                             value={selectedBrand}
                             onChange={handleBrandFilter}
                             className="filter-select"
+                            style={{ width: "200px"}}
                         >
                             {uniqueBrands.map(brand => (
                                 <option key={brand} value={brand}>{brand}</option>
@@ -93,6 +94,7 @@ const HomePage = () => {
                                 value={selectedSubBrand}
                                 onChange={handleSubBrandFilter}
                                 className="filter-select"
+                                style={{ width: "200px"}}
                             >
                                 {subBrands.map(model => (
                                     <option key={model} value={model}>{model}</option>
