@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Car from '../../Components/Car';
-import carsData from '../../assets/taladrod-cars.min.json';
+import carsData from '../../assets/taladrod-cars.json';
 import { Col, Row, Container } from 'react-bootstrap';
 import { useLocalStorage } from 'react-use';
 
@@ -75,6 +75,7 @@ const HomePage = () => {
                     <br />
                     <div style={{ textAlign: "center" }}>
                         <label htmlFor="brandFilter" className="filter-label">Filter by Brand: </label>
+                        &nbsp; &nbsp;
                         <select
                             id="brandFilter"
                             value={selectedBrand}
@@ -85,7 +86,7 @@ const HomePage = () => {
                                 <option key={brand} value={brand}>{brand}</option>
                             ))}
                         </select>
-
+                        &nbsp; &nbsp;
                         {selectedBrand !== "All" && subBrands.length > 0 && (
                             <select
                                 id="subBrandFilter"

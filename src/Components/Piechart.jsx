@@ -20,11 +20,14 @@ const groupCarsByBrand = (cars) => {
   return brandCounts;
 };
 
-const generateColorShades = (baseColor, count) => {
+// const generateColorShades = (baseColor, count) => {
 
-  return chroma.scale([chroma(baseColor).darken(0), chroma(baseColor).brighten(3)])
-               .mode('lab')
-               .colors(count);
+//   return chroma.scale([chroma(baseColor).darken(0), chroma(baseColor).brighten(3)])
+//                .mode('lab')
+//                .colors(count);
+// };
+const generateDistinctColors = (count) => {
+  return chroma.scale('paired').mode('lab').colors(count);
 };
 
 const PieChart = ({ data }) => {
@@ -38,8 +41,7 @@ const PieChart = ({ data }) => {
   const values = sortedBrands.map(([, count]) => count);
   
   const colorCount = labels.length;
-  const baseColor = "#094D8C"; 
-  const colors = generateColorShades(baseColor, colorCount);
+  const colors = generateDistinctColors(colorCount);
 
   const pieData = {
     labels: labels,

@@ -30,6 +30,8 @@ const StackedBarChart = ({ data }) => {
     return acc;
   }, {});
 
+  const distinctColors = chroma.scale('paired').mode('lab').colors(new Set(data.map(car => car.Model)).size);
+
   const sortedBrands = Object.keys(brandModelMap)
     .map(brand => ({
       brand,
@@ -50,14 +52,14 @@ const StackedBarChart = ({ data }) => {
     const colorShades = chroma.scale([chroma(baseColor).darken(0), chroma(baseColor).brighten(3)])
                               .mode('lab')
                               .colors(sortedModelNames.length);
-
+    
     return {
       label: model,
       data: sortedBrands.map(brand => brandModelMap[brand][model] || 0),
       barThickness: 20,
       categoryPercentage: 1,
-      backgroundColor: colorShades[index],
-      borderColor: chroma(colorShades[index]).darken(0.8).hex(),
+backgroundColor: distinctColors[index % distinctColors.length],
+    borderColor: chroma(distinctColors[index % distinctColors.length]).darken(1.5).hex(),
       borderWidth: 1,
     };
   });
