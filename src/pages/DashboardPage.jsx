@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Col, Row, Container, Button } from 'react-bootstrap';
 import DataTable from "../Components/DataTable";
-import PieChart from "../Components/piechart";
+import PieChart from "../Components/Piechart";
 import carList from "../assets/taladrod-cars.json";
 import StackedBarChart from "../Components/StackedbarChart2";
 
