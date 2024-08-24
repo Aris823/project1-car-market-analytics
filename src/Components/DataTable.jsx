@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Table, FormControl } from 'react-bootstrap';
-import carList from '../assets/taladrod-cars.min.json'
+import carList from '../assets/taladrod-cars.json'
 //import "../App.css";
 
 const DataTable = ({ data, brand,name }) => {
